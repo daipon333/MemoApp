@@ -16,7 +16,10 @@
     "no-use-before-define": 0,
     "react/react-in-jsx-scope": "off",
     "quotes": "off",
-    "max-len": ["error", { "code": 200 }]
+    "max-len": ["error", { "code": 200 }],
     "object-curly-newline": ["off"]
+  },
+  "settings": {
+    "import/core-modules": ["@expo/vector-icons"]
   }
 }
