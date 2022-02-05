@@ -1,12 +1,13 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import AppBar from "../components/AppBar";
+
 import CircleButton from "../components/CircleButton";
 
-export default function MemoDetailScreen() {
+export default function MemoDetailScreen(props) {
+  const { navigation } = props;
+
   return (
     <View style={styles.container}>
-      <AppBar />
       <View style={styles.memoHeader}>
         <Text style={styles.memoTitle}>買い物リスト</Text>
         <Text style={styles.memoDate}>2022年3月1日 13:00</Text>
@@ -18,7 +19,13 @@ export default function MemoDetailScreen() {
           ダミーテキストはダミー文書やダミー文章とも呼ばれることがあります。カタカナ語が苦手な方は「組見本」と呼ぶとよいでしょう。主に書籍やウェブページなどのデザインを作成する時によく使われます。これは正式な文章の代わりに入れて使うダミーテキストです。
         </Text>
       </ScrollView>
-      <CircleButton style={{ top: 160, bottom: "auto" }} name="pencil" />
+      <CircleButton
+        style={{ top: 60, bottom: "auto" }}
+        name="pencil"
+        onPress={() => {
+          navigation.navigate("MemoEdit");
+        }}
+      />
     </View>
   );
 }

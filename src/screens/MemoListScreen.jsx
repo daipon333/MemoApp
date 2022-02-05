@@ -1,16 +1,21 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
-import AppBar from "../components/AppBar";
+import { StyleSheet, TouchableOpacity } from "react-native";
+
 import Memolist from "../components/MemoList";
 import CircleButton from "../components/CircleButton";
 
-export default function MemoListScreen() {
+export default function MemoListScreen(props) {
+  const { navigation } = props;
   return (
-    <View style={styles.container}>
-      <AppBar />
+    <TouchableOpacity style={styles.container}>
       <Memolist />
-      <CircleButton name="plus" />
-    </View>
+      <CircleButton
+        name="plus"
+        onPress={() => {
+          navigation.navigate("MemoCreate");
+        }}
+      />
+    </TouchableOpacity>
   );
 }
 
