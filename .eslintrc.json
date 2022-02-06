@@ -18,7 +18,8 @@
     "quotes": "off",
     "max-len": ["error", { "code": 200 }],
     "object-curly-newline": ["off"],
-    "react/prop-types": ["error", { "ignore": ["navigation"] }]
+    "react/prop-types": ["error", { "ignore": ["navigation"] }],
+    "allowFunctions": "true"
   },
   "settings": {
     "import/core-modules": ["@expo/vector-icons"]
