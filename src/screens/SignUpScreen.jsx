@@ -8,8 +8,8 @@ import {
   Alert,
 } from "react-native";
 import firebase from "firebase";
-
 import Button from "../components/Button";
+import { translateError } from "../utils";
 
 export default function SignUpScreen(props) {
   const { navigation } = props;
@@ -29,7 +29,8 @@ export default function SignUpScreen(props) {
         });
       })
       .catch((error) => {
-        Alert.alert(error.code, error.message);
+        const errorMsg = translateError(error.code);
+        Alert.alert(errorMsg.title, errorMsg.description);
       });
   }
 

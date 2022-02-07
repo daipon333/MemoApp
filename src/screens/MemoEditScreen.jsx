@@ -4,6 +4,7 @@ import { shape, string } from "prop-types";
 import CircleButton from "../components/CircleButton";
 import KeyboardSafeView from "../components/KeyboardSafeView";
 import firebase from "firebase";
+import { translateError } from "../utils";
 
 export default function MemoEditScreen(props) {
   const { navigation, route } = props;
@@ -28,7 +29,8 @@ export default function MemoEditScreen(props) {
           console.log(id);
         })
         .catch((error) => {
-          Alert.alert(error.code);
+          const errorMsg = translateError(error.code);
+          Alert.alert(errorMsg.title, errorMsg.description);
         });
     }
   }
@@ -42,6 +44,7 @@ export default function MemoEditScreen(props) {
           value={body}
           multiline
           style={styles.input}
+          autoCapitalize="none"
         />
       </View>
       <CircleButton name="check" onPress={handlePress} />
