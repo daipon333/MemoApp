@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { string, shape } from "prop-types";
 import CircleButton from "../components/CircleButton";
-import { isRequired } from "react-native/Libraries/DeprecatedPropTypes/DeprecatedColorPropType";
 import firebase from "firebase";
-import { memo } from "react/cjs/react.development";
 import { dateToString } from "../utils";
 
 export default function MemoDetailScreen(props) {
@@ -15,7 +13,7 @@ export default function MemoDetailScreen(props) {
 
   useEffect(() => {
     const { currentUser } = firebase.auth();
-    let unsubscribe;
+    let unsubscribe = () => {};
     if (currentUser) {
       const db = firebase.firestore();
       const ref = db.collection(`users/${currentUser.uid}/memos`).doc(id);
@@ -49,7 +47,10 @@ export default function MemoDetailScreen(props) {
         style={{ top: 60, bottom: "auto" }}
         name="pencil"
         onPress={() => {
-          navigation.navigate("MemoEdit");
+          navigation.navigate("MemoEdit", {
+            id: memo.id,
+            bodyText: memo.bodyText,
+          });
         }}
       />
     </View>

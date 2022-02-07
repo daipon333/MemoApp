@@ -1,25 +1,62 @@
-import React from "react";
-import { View, StyleSheet, TextInput } from "react-native";
-
+import React, { useState } from "react";
+import { View, StyleSheet, TextInput, Alert } from "react-native";
+import { shape, string } from "prop-types";
 import CircleButton from "../components/CircleButton";
 import KeyboardSafeView from "../components/KeyboardSafeView";
+import firebase from "firebase";
 
 export default function MemoEditScreen(props) {
-  const { navigation } = props;
-  return (
-    <KeyboardSafeView behavior="height" style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput value="買い物リスト" multiline style={styles.input} />
-      </View>
-      <CircleButton
-        name="check"
-        onPress={() => {
+  const { navigation, route } = props;
+  const { id, bodyText } = route.params;
+  const [body, setBody] = useState(bodyText);
+
+  function handlePress() {
+    const { currentUser } = firebase.auth();
+    if (currentUser) {
+      const db = firebase.firestore();
+      const ref = db.collection(`users/${currentUser.uid}/memos`).doc(id);
+      ref
+        .set(
+          {
+            bodyText: body,
+            updatedAt: new Date(),
+          },
+          { merge: true }
+        )
+        .then(() => {
           navigation.goBack();
-        }}
-      />
+          console.log(id);
+        })
+        .catch((error) => {
+          Alert.alert(error.code);
+        });
+    }
+  }
+  return (
+    <KeyboardSafeView style={styles.container}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          onChangeText={(text) => {
+            setBody(text);
+          }}
+          value={body}
+          multiline
+          style={styles.input}
+        />
+      </View>
+      <CircleButton name="check" onPress={handlePress} />
     </KeyboardSafeView>
   );
 }
+
+MemoEditScreen.propTypes = {
+  route: shape({
+    params: shape({
+      id: string,
+      bodyText: string,
+    }),
+  }).isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {
