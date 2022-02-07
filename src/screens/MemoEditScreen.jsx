@@ -26,7 +26,6 @@ export default function MemoEditScreen(props) {
         )
         .then(() => {
           navigation.goBack();
-          console.log(id);
         })
         .catch((error) => {
           const errorMsg = translateError(error.code);

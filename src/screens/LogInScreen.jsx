@@ -39,7 +39,7 @@ export default function LogInScreen(props) {
       .signInWithEmailAndPassword(email, password)
       .then((userCredentiol) => {
         const { user } = userCredentiol;
-        console.log(user.uid);
+
         navigation.reset({
           index: 0,
           routes: [{ name: "MemoList" }],
