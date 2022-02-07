@@ -4,6 +4,7 @@ import {
   createStackNavigator,
   CardStyleInterpolators,
 } from "@react-navigation/stack";
+import { LogBox } from "react-native";
 import firebase from "firebase";
 import { firebaseConfig } from "./env";
 
@@ -17,6 +18,7 @@ import SignUpScreen from "./src/screens/SignUpScreen";
 require("firebase/firestore");
 
 const Stack = createStackNavigator();
+LogBox.ignoreLogs("Setting a timer");
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
