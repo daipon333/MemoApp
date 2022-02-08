@@ -18,7 +18,7 @@ import SignUpScreen from "./src/screens/SignUpScreen";
 require("firebase/firestore");
 
 const Stack = createStackNavigator();
-LogBox.ignoreLogs("Setting a timer");
+LogBox.ignoreLogs(["AsyncStorage"], ["Setting a timer"]);
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
